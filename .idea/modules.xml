@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/isolated.iml" filepath="$PROJECT_DIR$/isolated.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/argouml-isolated.iml" filepath="$PROJECT_DIR$/.idea/argouml-isolated.iml" />
     </modules>
   </component>
 </project>
