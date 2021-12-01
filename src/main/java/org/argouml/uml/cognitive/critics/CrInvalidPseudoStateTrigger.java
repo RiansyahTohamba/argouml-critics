@@ -41,6 +41,7 @@ package org.argouml.uml.cognitive.critics;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.argouml.cognitive.Designer;
 import org.argouml.model.Model;
 import org.argouml.uml.cognitive.UMLDecision;
 
@@ -53,9 +54,6 @@ import org.argouml.uml.cognitive.UMLDecision;
  * @author pepargouml@yahoo.es
  */
 public class CrInvalidPseudoStateTrigger extends CrUML {
-
-    private static final boolean NO_PROBLEM = true;
-    private static final boolean PROBLEM_FOUND = true;
 
     /**
      * The constructor.

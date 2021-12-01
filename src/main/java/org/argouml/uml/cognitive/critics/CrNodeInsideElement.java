@@ -47,7 +47,7 @@ import org.argouml.uml.cognitive.UMLDecision;
 import org.argouml.uml.cognitive.UMLToDoItem;
 import org.argouml.uml.diagram.deployment.ui.FigMNode;
 //import org.argouml.uml.diagram.deployment.ui.FigMNode;
-//import org.argouml.uml.diagram.deployment.ui.UMLDeploymentDiagram;
+import org.argouml.uml.diagram.deployment.ui.UMLDeploymentDiagram;
 
 /**
  * A critic to detect when there are nodes that

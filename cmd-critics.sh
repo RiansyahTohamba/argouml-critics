@@ -1,10 +1,9 @@
 java -jar ~/JCodeOdor-Launcher-1.0-standalone.jar \
--source src/org \
-src/org/argouml/configuration src/org/tigris \
-src/Acme/JPM/Encoders \
+-source src/ \
 -lib /usr/lib/jvm/java-8-openjdk-amd64/ ~/.gradle/ ~/.m2 \
 -output tahap1.sqlite -JV 1.8
 
+# /src/main/java/Acme/JPM/Encoders/GifEncoder.java
 
 # java -jar ~/JCodeOdor-Launcher-1.0-standalone.jar \
 # -source src/org/argouml/ \

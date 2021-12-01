@@ -1969,4 +1969,9 @@ public class FacadeEUMLImpl implements Facade{
     public boolean isA(String metatypeName, Object element) {
         return false;
     }
+
+    @Override
+    public Collection getContents() {
+        return null;
+    }
 }

@@ -42,7 +42,8 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
 
-import javax.swing.Icon;
+import javax.swing.*;
+import javax.swing.plaf.IconUIResource;
 
 import org.argouml.cognitive.Critic;
 import org.argouml.cognitive.Designer;
@@ -116,7 +117,8 @@ public class CrNoOperations extends CrUML {
      */
     //@override
     public Icon getClarifier() {
-	return ClOperationCompartment.getTheInstance();
+        return new ImageIcon();
+//	return ClOperationCompartment.getTheInstance();
     }
 
     private boolean findInstanceOperationInInherited(Object dm, int depth) {
