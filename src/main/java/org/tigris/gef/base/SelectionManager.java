@@ -1126,11 +1126,13 @@ public class SelectionManager implements Serializable, KeyListener,
     // protected static Hashtable _SelectionRegistry = new Hashtable();
     // needs-more-work: cache a pool of selection objects?
     public static Selection makeSelectionFor(Fig f) {
+
         Selection customSelection = f.makeSelection();
         if (customSelection != null) {
             return customSelection;
         }
-
+        FindSelection fs = new FindSelection();
+        fs.set(customSelection);
         // if (f.isRotatable()) return new SelectionRotate(f);
         if (f.isReshapable()) {
             return new SelectionReshape(f);

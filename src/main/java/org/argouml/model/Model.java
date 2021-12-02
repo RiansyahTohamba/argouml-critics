@@ -2,8 +2,7 @@ package org.argouml.model;
 
 public class Model{
     public static Facade getFacade() {
-        ModelImplementation impl = new ModelImplementation();
-        return impl.getFacade();
+        return new FacadeEUMLImpl();
     }
 
     public static PseudostateKind getPseudostateKind() {

@@ -108,34 +108,36 @@ public class WizBreakCircularComp extends UMLWizard {
      */
     protected List<String> getOptions2() {
         List<String> result = new ArrayList<String>();
-	if (selectedCls != null) {
-	    Collection aes = Model.getFacade().getAssociationEnds(selectedCls);
-	    Object fromType = selectedCls;
-	    String fromName = Model.getFacade().getName(fromType);
-	    for (Iterator iter = aes.iterator(); iter.hasNext();) {
-		Object fromEnd = iter.next();
-		Object asc = Model.getFacade().getAssociation(fromEnd);
-		Object toEnd =
-		    new ArrayList(Model.getFacade().getConnections(asc)).get(0);
-		if (toEnd == fromEnd) {
-		    toEnd = new ArrayList(
-		            Model.getFacade().getConnections(asc)).get(1);
+		StepChecker sc = new StepChecker();
+		sc.check();
+		FindAnotherOptions fao = new FindAnotherOptions();
+		fao.check();
+		if (selectedCls != null) {
+		    Collection aes = Model.getFacade().getAssociationEnds(selectedCls);
+		    Object fromType = selectedCls;
+		    String fromName = Model.getFacade().getName(fromType);
+		    for (Iterator iter = aes.iterator(); iter.hasNext();) {
+				Object fromEnd = iter.next();
+				Object asc = Model.getFacade().getAssociation(fromEnd);
+				Object toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(0);
+			if (toEnd == fromEnd) {
+			    toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(1);
+			}
+			Object toType = Model.getFacade().getType(toEnd);
+			String ascName = Model.getFacade().getName(asc);
+			String toName = Model.getFacade().getName(toType);
+			String s = ascName
+	                    + " "
+	                    + Translator.localize("critics.WizBreakCircularComp-from")
+	                    + fromName
+	                    + " "
+	                    + Translator.localize("critics.WizBreakCircularComp-to")
+	                    + " "
+	                    + toName;
+			result.add(s);
+		    }
 		}
-		Object toType = Model.getFacade().getType(toEnd);
-		String ascName = Model.getFacade().getName(asc);
-		String toName = Model.getFacade().getName(toType);
-		String s = ascName
-                    + " "
-                    + Translator.localize("critics.WizBreakCircularComp-from")
-                    + fromName
-                    + " "
-                    + Translator.localize("critics.WizBreakCircularComp-to")
-                    + " "
-                    + toName;
-		result.add(s);
-	    }
-	}
-	return result;
+		return result;
     }
 
     /*
@@ -169,57 +171,55 @@ public class WizBreakCircularComp extends UMLWizard {
      */
     public void doAction(int oldStep) {
         LOG.log(Level.FINE, "doAction {0}", oldStep);
+		int choice = -1;
+		ToDoItem item = (ToDoItem) getToDoItem();
+		ListSet offs = item.getOffenders();
+		
+		StepChecker sc = new StepChecker();
+		sc.check();
 
-	int choice = -1;
-	ToDoItem item = (ToDoItem) getToDoItem();
-	ListSet offs = item.getOffenders();
-	switch (oldStep) {
-	case 1:
-	    if (step1 != null) {
-	        choice = step1.getSelectedIndex();
-	    }
-	    if (choice == -1) {
-		throw new Error("nothing selected, should not get here");
-	    }
-	    selectedCls = offs.get(choice);
-	    break;
-	    ////////////////
-	case 2:
-	    if (step2 != null) {
-	        choice = step2.getSelectedIndex();
-	    }
-	    if (choice == -1) {
-		throw new Error("nothing selected, should not get here");
-	    }
-	    Object ae = null;
-	    Iterator iter =
-	        Model.getFacade().getAssociationEnds(selectedCls).iterator();
-	    for (int n = 0; n <= choice; n++) {
-	        ae = iter.next();
-	    }
-	    selectedAsc = Model.getFacade().getAssociation(ae);
-	    break;
-	    ////////////////
-	case 3:
-	    if (selectedAsc != null) {
-		List conns = new ArrayList(
-		        Model.getFacade().getConnections(selectedAsc));
-		Object ae0 = conns.get(0);
-		Object ae1 = conns.get(1);
-		try {
-		    Model.getCoreHelper().setAggregation1(
-		            ae0,
-		            Model.getAggregationKind().getNone());
-		    Model.getCoreHelper().setAggregation1(
-		            ae1,
-		            Model.getAggregationKind().getNone());
-		} catch (Exception pve) {
-                    LOG.log(Level.SEVERE, "could not set aggregation", pve);
+		switch (oldStep) {
+			case 1:
+				if (step1 != null) {
+					choice = step1.getSelectedIndex();
+				}
+				if (choice == -1) {
+					throw new Error("nothing selected, should not get here");
+				}
+				selectedCls = offs.get(choice);
+				break;
+			case 2:
+				if (step2 != null) {
+					choice = step2.getSelectedIndex();
+				}
+				if (choice == -1) {
+					throw new Error("nothing selected, should not get here");
+				}
+				Object ae = null;
+				Iterator iter = Model.getFacade().getAssociationEnds(selectedCls).iterator();
+				for (int n = 0; n <= choice; n++) {
+					ae = iter.next();
+				}
+				selectedAsc = Model.getFacade().getAssociation(ae);
+				break;
+			case 3:
+				if (selectedAsc != null) {
+					List conns = new ArrayList(
+							Model.getFacade().getConnections(selectedAsc));
+					Object ae0 = conns.get(0);
+					Object ae1 = conns.get(1);
+					try {
+						Model.getCoreHelper().setAggregation1(ae0,Model.getAggregationKind().getNone());
+						Model.getCoreHelper().setAggregation1(
+								ae1,
+								Model.getAggregationKind().getNone());
+					} catch (Exception pve) {
+								LOG.log(Level.SEVERE, "could not set aggregation", pve);
+					}
+				}
+				break;
 		}
-	    }
-	    break;
 	}
-    }
 
     /*
      * @see org.argouml.cognitive.ui.Wizard#canGoNext()

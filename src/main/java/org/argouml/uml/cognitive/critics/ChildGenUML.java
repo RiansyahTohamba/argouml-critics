@@ -103,97 +103,97 @@ public class ChildGenUML implements ChildGenerator {
 		// LOG.log(Level.FINE, "Finding children for " + o.getClass());
         }
 
-	if (o instanceof Project) {
-	    Project p = (Project) o;
-            Collection result = new ArrayList();
-            result.addAll(p.getUserDefinedModelList());
-            result.addAll(p.getDiagramList());
-            return result.iterator();
-	}
+    	if (o instanceof Project) {
+    	    Project p = (Project) o;
+                Collection result = new ArrayList();
+                result.addAll(p.getUserDefinedModelList());
+                result.addAll(p.getDiagramList());
+                return result.iterator();
+    	}
 
-	if (o instanceof Diagram) {
-	    Collection figs = ((Diagram) o).getLayer().getContents();
-	    if (figs != null) {
-	        return figs.iterator();
-	    }
-	}
+    	if (o instanceof Diagram) {
+    	    Collection figs = ((Diagram) o).getLayer().getContents();
+    	    if (figs != null) {
+    	        return figs.iterator();
+    	    }
+    	}
 
-	// argument can be an instanceof a Fig which we ignore
+    	// argument can be an instanceof a Fig which we ignore
 
-	if (Model.getFacade().isAPackage(o)) {
-	    Collection ownedElements =
-                Model.getFacade().getOwnedElements(o);
-	    if (ownedElements != null) {
-	        return ownedElements.iterator();
-	    }
-	}
+    	if (Model.getFacade().isAPackage(o)) {
+    	    Collection ownedElements =
+                    Model.getFacade().getOwnedElements(o);
+    	    if (ownedElements != null) {
+    	        return ownedElements.iterator();
+    	    }
+    	}
 
-	if (Model.getFacade().isAElementImport(o)) {
-	    Object me = Model.getFacade().getModelElement(o);
-	    if (me != null) {
-	        return new SingleElementIterator(me);
-	    }
-	}
+    	if (Model.getFacade().isAElementImport(o)) {
+    	    Object me = Model.getFacade().getModelElement(o);
+    	    if (me != null) {
+    	        return new SingleElementIterator(me);
+    	    }
+    	}
 
 
-	// TODO: associationclasses fit both of the next 2 cases
+    	// TODO: associationclasses fit both of the next 2 cases
 
-	if (Model.getFacade().isAClassifier(o)) {
-            Collection result = new ArrayList();
-	    result.addAll(Model.getFacade().getFeatures(o));
+    	if (Model.getFacade().isAClassifier(o)) {
+                Collection result = new ArrayList();
+    	    result.addAll(Model.getFacade().getFeatures(o));
 
-	    Collection sms = Model.getFacade().getBehaviors(o);
-	    //Object sm = null;
-	    //if (sms != null && sms.size() > 0)
-		//sm = sms.elementAt(0);
-	    //if (sm != null) res.addSub(new EnumerationSingle(sm));
-            if (sms != null) {
-                result.addAll(sms);
+    	    Collection sms = Model.getFacade().getBehaviors(o);
+    	    //Object sm = null;
+    	    //if (sms != null && sms.size() > 0)
+    		//sm = sms.elementAt(0);
+    	    //if (sm != null) res.addSub(new EnumerationSingle(sm));
+                if (sms != null) {
+                    result.addAll(sms);
+                }
+    	    return result.iterator();
+    	}
+
+    	if (Model.getFacade().isAAssociation(o)) {
+
+    	    List assocEnds = (List) Model.getFacade().getConnections(o);
+    	    if (assocEnds != null) {
+    	        return assocEnds.iterator();
+    	    }
+    	    //TODO: AssociationRole
+    	}
+
+    	// // needed?
+    	if (Model.getFacade().isAStateMachine(o)) {
+                Collection result = new ArrayList();
+    	    Object top = Model.getStateMachinesHelper().getTop(o);
+    	    if (top != null) {
+                    result.add(top);
+    	    }
+    	    result.addAll(Model.getFacade().getTransitions(o));
+    	    return result.iterator();
+    	}
+
+    	// needed?
+    	if (Model.getFacade().isACompositeState(o)) {
+    	    Collection substates = Model.getFacade().getSubvertices(o);
+    	    if (substates != null) {
+    	        return substates.iterator();
+    	    }
+    	}
+
+            if (Model.getFacade().isAOperation(o)) {
+                Collection params = Model.getFacade().getParameters(o);
+                if (params != null) {
+                    return params.iterator();
+                }
             }
-	    return result.iterator();
-	}
 
-	if (Model.getFacade().isAAssociation(o)) {
-
-	    List assocEnds = (List) Model.getFacade().getConnections(o);
-	    if (assocEnds != null) {
-	        return assocEnds.iterator();
-	    }
-	    //TODO: AssociationRole
-	}
-
-	// // needed?
-	if (Model.getFacade().isAStateMachine(o)) {
-            Collection result = new ArrayList();
-	    Object top = Model.getStateMachinesHelper().getTop(o);
-	    if (top != null) {
-                result.add(top);
-	    }
-	    result.addAll(Model.getFacade().getTransitions(o));
-	    return result.iterator();
-	}
-
-	// needed?
-	if (Model.getFacade().isACompositeState(o)) {
-	    Collection substates = Model.getFacade().getSubvertices(o);
-	    if (substates != null) {
-	        return substates.iterator();
-	    }
-	}
-
-        if (Model.getFacade().isAOperation(o)) {
-            Collection params = Model.getFacade().getParameters(o);
-            if (params != null) {
-                return params.iterator();
-            }
-        }
-
-        if (Model.getFacade().isAModelElement(o)) {
-	    Collection behavior = Model.getFacade().getBehaviors(o);
-	    if (behavior != null) {
-	        return behavior.iterator();
-	    }
-	}
+            if (Model.getFacade().isAModelElement(o)) {
+    	    Collection behavior = Model.getFacade().getBehaviors(o);
+    	    if (behavior != null) {
+    	        return behavior.iterator();
+    	    }
+    	}
 
         // TODO: We can probably use this instead of all of the above
         // legacy UML 1.3 code - tfm - 20070915

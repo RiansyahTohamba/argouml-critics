@@ -146,11 +146,17 @@ public class WizAssocComposite extends UMLWizard {
 
         Iterator iter = Model.getFacade().getConnections(asc).iterator();
 
+        FindAnotherOptions fao = new FindAnotherOptions();
+        fao.check();
         Object ae0 = iter.next();
         Object ae1 = iter.next();
 
         Object cls0 = Model.getFacade().getType(ae0);
         Object cls1 = Model.getFacade().getType(ae1);
+        StepChecker sc = new StepChecker();
+        sc.checkType(cls0,cls1);
+        BuildAssoc ba = new BuildAssoc();
+        ba.create();
 
         // Get the names of the two ends. If there are none (i.e they are
         // currently anonymous), use the ArgoUML convention of "(anon)" for the
@@ -271,6 +277,8 @@ public class WizAssocComposite extends UMLWizard {
      */
     public void doAction(int oldStep) {
 
+        StepChecker sc = new StepChecker();
+        sc.check();
         switch (oldStep) {
 
         case 1:
@@ -331,7 +339,8 @@ public class WizAssocComposite extends UMLWizard {
                     break;
 
                 case 3:
-
+                    FindAnotherOptions fao = new FindAnotherOptions();
+                    fao.check();
                     // End is a shared aggregation of start
                     Model.getCoreHelper().setAggregation1(ae0,
                             Model.getAggregationKind().getNone());
