@@ -155,16 +155,13 @@ public class WizAssocComposite extends UMLWizard {
         Object cls1 = Model.getFacade().getType(ae1);
 
         StepChecker sc = new StepChecker();
-        // CINT=-1 (-1)
-        // sc.checkType(cls0,cls1);
-
         BuildAssoc ba = new BuildAssoc();
-        // CINT=-1 (-2)
-        // ba.create();
 
         // Get the names of the two ends. If there are none (i.e they are
         // currently anonymous), use the ArgoUML convention of "(anon)" for the
         // names
+        CrMergeClasses cmc = new CrMergeClasses();
+        CrMissingAttrName cmattr = new CrMissingAttrName();
 
         String start = Translator.localize("misc.name.anon");
         // String end = Translator.localize("misc.name.anon");

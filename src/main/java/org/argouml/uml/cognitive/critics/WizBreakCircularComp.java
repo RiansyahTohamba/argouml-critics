@@ -110,6 +110,10 @@ public class WizBreakCircularComp extends UMLWizard {
         List<String> result = new ArrayList<String>();
 		StepChecker sc = new StepChecker();
 		FindAnotherOptions fao = new FindAnotherOptions();
+		BuildAssoc ba = new BuildAssoc();
+		CrMergeClasses cmc = new CrMergeClasses();
+		CrMissingAttrName cmattr = new CrMissingAttrName();
+
 		if (selectedCls != null) {
 		    Collection aes = Model.getFacade().getAssociationEnds(selectedCls);
 		    Object fromType = selectedCls;

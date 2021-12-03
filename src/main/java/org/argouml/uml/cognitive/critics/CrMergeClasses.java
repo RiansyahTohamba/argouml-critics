@@ -120,5 +120,7 @@ public class CrMergeClasses extends CrUML {
         ret.add(Model.getMetaTypes().getUMLClass());
         return ret;
     }
-    
+
+    public void predicate() {
+    }
 } /* end class CrMergeClasses */
