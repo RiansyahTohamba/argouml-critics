@@ -108,11 +108,7 @@ public class WizBreakCircularComp extends UMLWizard {
      */
     protected List<String> getOptions2() {
         List<String> result = new ArrayList<String>();
-		StepChecker sc = new StepChecker();
-		FindAnotherOptions fao = new FindAnotherOptions();
-		BuildAssoc ba = new BuildAssoc();
-		CrMergeClasses cmc = new CrMergeClasses();
-		CrMissingAttrName cmattr = new CrMissingAttrName();
+		initOptions2();
 
 		if (selectedCls != null) {
 		    Collection aes = Model.getFacade().getAssociationEnds(selectedCls);
@@ -122,32 +118,37 @@ public class WizBreakCircularComp extends UMLWizard {
 				Object fromEnd = iter.next();
 				Object asc = Model.getFacade().getAssociation(fromEnd);
 				Object toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(0);
-			if (toEnd == fromEnd) {
-			    toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(1);
+				if (toEnd == fromEnd) {
+					toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(1);
+				}
+
+				setFullName(result, fromName, asc, toEnd);
 			}
-			
-			Object toType = Model.getFacade().getType(toEnd);
-			// String ascName = Model.getFacade().getName(asc);
-			// String toName = Model.getFacade().getName(toType);
-			
-			String ascName = "name";
-			String toName = "name";
-			
-			String s = ascName
-	                    + " "
-	                    + Translator.localize("critics.WizBreakCircularComp-from")
-	                    + fromName
-	                    + " "
-	                    + Translator.localize("critics.WizBreakCircularComp-to")
-	                    + " "
-	                    + toName;
-			result.add(s);
-		    }
 		}
 		return result;
     }
 
-    /*
+	private void initOptions2() {
+		StepChecker sc = new StepChecker();
+		FindAnotherOptions fao = new FindAnotherOptions();
+		BuildAssoc ba = new BuildAssoc();
+		CrMergeClasses cmc = new CrMergeClasses();
+		CrMissingAttrName cmattr = new CrMissingAttrName();
+	}
+
+	private void setFullName(List<String> result, String fromName, Object asc, Object toEnd) {
+		Object toType = Model.getFacade().getType(toEnd);
+		String ascName = Model.getFacade().getName(asc);
+		String toName = Model.getFacade().getName(toType);
+
+		String fullName = ascName+ " "+ Translator.localize("critics.WizBreakCircularComp-from")
+					+ fromName+ " "+ Translator.localize("critics.WizBreakCircularComp-to")
+					+ " "
+					+ toName;
+		result.add(fullName);
+	}
+
+	/*
      * @see org.argouml.cognitive.ui.Wizard#makePanel(int)
      */
     public JPanel makePanel(int newStep) {

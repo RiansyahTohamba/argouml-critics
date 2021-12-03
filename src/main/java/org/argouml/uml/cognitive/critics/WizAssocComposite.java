@@ -154,14 +154,10 @@ public class WizAssocComposite extends UMLWizard {
         Object cls0 = Model.getFacade().getType(ae0);
         Object cls1 = Model.getFacade().getType(ae1);
 
-        StepChecker sc = new StepChecker();
-        BuildAssoc ba = new BuildAssoc();
-
+        initBuildOptions();
         // Get the names of the two ends. If there are none (i.e they are
         // currently anonymous), use the ArgoUML convention of "(anon)" for the
         // names
-        CrMergeClasses cmc = new CrMergeClasses();
-        CrMissingAttrName cmattr = new CrMissingAttrName();
 
         String start = Translator.localize("misc.name.anon");
         // String end = Translator.localize("misc.name.anon");
@@ -177,7 +173,18 @@ public class WizAssocComposite extends UMLWizard {
         }
 
         // Now create the five options
+        result = getFiveOpt(result, start, end);
+        return result;
+    }
 
+    private void initBuildOptions() {
+        StepChecker sc = new StepChecker();
+        BuildAssoc ba = new BuildAssoc();
+        CrMergeClasses cmc = new CrMergeClasses();
+        CrMissingAttrName cmattr = new CrMissingAttrName();
+    }
+
+    private List<String> getFiveOpt(List<String> result, String start, String end) {
         result.add(start
                 + Translator.localize("critics.WizAssocComposite-option1")
                 + end);
@@ -185,16 +192,10 @@ public class WizAssocComposite extends UMLWizard {
                 + Translator.localize("critics.WizAssocComposite-option2")
                 + end);
 
-        // result.add(end
-        //         + Translator.localize("critics.WizAssocComposite-option1")
-        //         + start);
-        // result.add(end
-        //         + Translator.localize("critics.WizAssocComposite-option2")
-        //         + start);
-        // CINT=-2 (-4)
+        result.add(end + Translator.localize("critics.WizAssocComposite-option1")+ start);
+        result.add(end + Translator.localize("critics.WizAssocComposite-option2")+ start);
 
         result.add(Translator.localize("critics.WizAssocComposite-option3"));
-
         return result;
     }
 
