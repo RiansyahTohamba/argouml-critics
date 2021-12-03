@@ -104,15 +104,19 @@ public class UseReshapeAction extends UndoableAction {
         // Enumeration sels = sm.selections().elements();
         while (sels.hasMoreElements()) {
             Selection s = (Selection) sels.nextElement();
-            if (s instanceof Selection && !(s instanceof SelectionReshape)) {
-                Fig f = s.getContent();
-                if (f.isReshapable()) {
-                    ce.damaged(s);
-                    sm.removeSelection(s);
-                    SelectionReshape sr = new SelectionReshape(f);
-                    sm.addSelection(sr);
-                    ce.damaged(sr);
-                }
+            reshapeAble(ce, sm, s);
+        }
+    }
+
+    private void reshapeAble(Editor ce, SelectionManager sm, Selection s) {
+        if (s instanceof Selection && !(s instanceof SelectionReshape)) {
+            Fig f = s.getContent();
+            if (f.isReshapable()) {
+                ce.damaged(s);
+                sm.removeSelection(s);
+                SelectionReshape sr = new SelectionReshape(f);
+                sm.addSelection(sr);
+                ce.damaged(sr);
             }
         }
     }
