@@ -1,7 +1,11 @@
 java -jar ~/JCodeOdor-Launcher-1.0-standalone.jar \
 -source src/ \
 -lib /usr/lib/jvm/java-8-openjdk-amd64/ ~/.gradle/ ~/.m2 \
--output tahap1.sqlite -JV 1.8
+-output 2-tahap-1-argouml.sqlite.sqlite -JV 1.8
+
+#1-tahap-0-argouml.sqlite
+#2-tahap-1-argouml.sqlite
+#3-tahap-2-argouml.sqlite
 
 # /src/main/java/Acme/JPM/Encoders/GifEncoder.java
 

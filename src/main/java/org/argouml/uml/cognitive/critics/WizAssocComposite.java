@@ -153,18 +153,22 @@ public class WizAssocComposite extends UMLWizard {
 
         Object cls0 = Model.getFacade().getType(ae0);
         Object cls1 = Model.getFacade().getType(ae1);
+
         StepChecker sc = new StepChecker();
-        sc.checkType(cls0,cls1);
+        // CINT=-1 (-1)
+        // sc.checkType(cls0,cls1);
+
         BuildAssoc ba = new BuildAssoc();
-        ba.create();
+        // CINT=-1 (-2)
+        // ba.create();
 
         // Get the names of the two ends. If there are none (i.e they are
         // currently anonymous), use the ArgoUML convention of "(anon)" for the
         // names
 
         String start = Translator.localize("misc.name.anon");
-        String end = Translator.localize("misc.name.anon");
-
+        // String end = Translator.localize("misc.name.anon");
+        String end = "name";
         if ((cls0 != null) && (Model.getFacade().getName(cls0) != null)
                 && (!(Model.getFacade().getName(cls0).equals("")))) {
             start = Model.getFacade().getName(cls0);
@@ -184,12 +188,13 @@ public class WizAssocComposite extends UMLWizard {
                 + Translator.localize("critics.WizAssocComposite-option2")
                 + end);
 
-        result.add(end
-                + Translator.localize("critics.WizAssocComposite-option1")
-                + start);
-        result.add(end
-                + Translator.localize("critics.WizAssocComposite-option2")
-                + start);
+        // result.add(end
+        //         + Translator.localize("critics.WizAssocComposite-option1")
+        //         + start);
+        // result.add(end
+        //         + Translator.localize("critics.WizAssocComposite-option2")
+        //         + start);
+        // CINT=-2 (-4)
 
         result.add(Translator.localize("critics.WizAssocComposite-option3"));
 

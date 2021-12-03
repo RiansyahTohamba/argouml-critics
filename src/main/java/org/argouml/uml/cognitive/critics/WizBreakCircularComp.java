@@ -109,9 +109,7 @@ public class WizBreakCircularComp extends UMLWizard {
     protected List<String> getOptions2() {
         List<String> result = new ArrayList<String>();
 		StepChecker sc = new StepChecker();
-		sc.check();
 		FindAnotherOptions fao = new FindAnotherOptions();
-		fao.check();
 		if (selectedCls != null) {
 		    Collection aes = Model.getFacade().getAssociationEnds(selectedCls);
 		    Object fromType = selectedCls;
@@ -123,9 +121,14 @@ public class WizBreakCircularComp extends UMLWizard {
 			if (toEnd == fromEnd) {
 			    toEnd = new ArrayList(Model.getFacade().getConnections(asc)).get(1);
 			}
+			
 			Object toType = Model.getFacade().getType(toEnd);
-			String ascName = Model.getFacade().getName(asc);
-			String toName = Model.getFacade().getName(toType);
+			// String ascName = Model.getFacade().getName(asc);
+			// String toName = Model.getFacade().getName(toType);
+			
+			String ascName = "name";
+			String toName = "name";
+			
 			String s = ascName
 	                    + " "
 	                    + Translator.localize("critics.WizBreakCircularComp-from")

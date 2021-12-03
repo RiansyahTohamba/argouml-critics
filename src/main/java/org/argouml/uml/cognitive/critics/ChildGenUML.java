@@ -49,10 +49,11 @@ import java.util.logging.Logger;
 
 import org.argouml.kernel.Project;
 import org.argouml.model.Model;
+import org.argouml.util.ChildGenerator;
 import org.argouml.util.IteratorEnumeration;
 import org.argouml.util.SingleElementIterator;
-import org.tigris.gef.base.Diagram;
-import org.tigris.gef.util.ChildGenerator;
+//import org.tigris.gef.base.Diagram;
+//import org.tigris.gef.util.ChildGenerator;
 
 /**
  * This class gives critics access to parts of the UML model of the
@@ -70,7 +71,7 @@ import org.tigris.gef.util.ChildGenerator;
  * @see org.argouml.cognitive.Designer
  * @author jrobbins
  */
-public class ChildGenUML implements ChildGenerator {
+public abstract class ChildGenUML implements ChildGenerator {
 
     private static final Logger LOG = Logger.getLogger(ChildGenUML.class.getName());
 
@@ -79,7 +80,7 @@ public class ChildGenUML implements ChildGenerator {
      *
      * @param o the object to return the children of
      * @return an enumeration of the children of the given Object
-     * @see org.tigris.gef.util.ChildGenerator#gen(java.lang.Object)
+//     * @see org.tigris.gef.util.ChildGenerator#gen(java.lang.Object)
      * @deprecated for 0.25.4 by tfmorris. Only for use with legacy GEF
      *             interfaces. Use {@link #gen2(Object)} for new applications.
      */
@@ -93,7 +94,7 @@ public class ChildGenUML implements ChildGenerator {
      *
      * @param o object to return the children of
      * @return an iterator over the children of the given object
-     * @see org.tigris.gef.util.ChildGenerator#gen(java.lang.Object)
+//     * @see org.tigris.gef.util.ChildGenerator#gen(java.lang.Object)
      */
     public Iterator gen2(Object o) {
 
@@ -111,12 +112,12 @@ public class ChildGenUML implements ChildGenerator {
                 return result.iterator();
     	}
 
-    	if (o instanceof Diagram) {
-    	    Collection figs = ((Diagram) o).getLayer().getContents();
-    	    if (figs != null) {
-    	        return figs.iterator();
-    	    }
-    	}
+//    	if (o instanceof Diagram) {
+//    	    Collection figs = ((Diagram) o).getLayer().getContents();
+//    	    if (figs != null) {
+//    	        return figs.iterator();
+//    	    }
+//    	}
 
     	// argument can be an instanceof a Fig which we ignore
 

@@ -4,10 +4,6 @@ import org.argouml.cognitive.Critic;
 import org.argouml.cognitive.Designer;
 import org.argouml.cognitive.ListSet;
 import org.argouml.cognitive.ToDoItem;
-import org.argouml.uml.cognitive.critics.CrCircularComposition;
-import org.argouml.uml.cognitive.critics.CrMultipleDeepHistoryStates;
-import org.argouml.uml.cognitive.critics.CrMultipleInitialStates;
-import org.argouml.uml.cognitive.critics.CrMultipleShallowHistoryStates;
 
 public class UMLToDoItem extends ToDoItem {
 
